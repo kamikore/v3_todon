@@ -1,0 +1,17 @@
+@import './todonVar.scss';
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Gilroy, Helvetica, "PingFang SC", "Microsoft Yahei", sans-serif;
+  letter-spacing: -2%;
+}
+
+
+body {
+    background-color: $bg-color;
+}
+
+
