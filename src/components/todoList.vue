@@ -1,12 +1,14 @@
 <template>
     <div class="list_wrap">
-        <listItem v-for="(item, index) in arr" :key="index" :isDone="item.isDone"></listItem>
+        <listItem v-for="item in todos" :key="item.id" :todo="item"></listItem>
     </div>
 </template>
 
 <script setup lang="ts">
 import listItem from '@/components/todoListItem.vue'
-let arr = [{ isDone: true }, { isDone: false }, { isDone: false }, { isDone: false }]
+const props = defineProps({
+    todos: Array
+})
 </script>
 
 <style lang="scss" scoped>

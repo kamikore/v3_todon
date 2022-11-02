@@ -1,5 +1,6 @@
 <template>
-    <div class="item_wrap" :class="isDone ? 'done' : ''">
+    <div class="item_wrap" :class="todo.isDone ? 'done' : ''">
+        {{ todo }}
         <!-- 将 <input> 直接放在 <label> 里，此时则不需要 for 和 id 属性，因为关联已隐含存在。所以点击label会触发input @click -->
         <!-- <label>
             <input type="checkbox" :checked="todoItem.completed" @click="$emit('change-state', $event)" />
@@ -8,8 +9,8 @@
         </label> -->
         <label>
             <div class="content_wrap">
-                <h3>content title</h3>
-                <span>dateTime</span>
+                <h3>{{ todo.content }}</h3>
+                <span>{{ todo.dateTime }}}</span>
             </div>
             <span class="checkBox">√</span>
             <!-- 规范？ 透明的input checkbox -->
@@ -20,12 +21,9 @@
 
 <script setup lang="ts">
 const props = defineProps({
-    isDone: {
-        type: Boolean,
-        default: false,
-    }
+    todo: Object,
 })
-console.log(props)
+console.log("sdsd", props)
 </script>
 
 <style lang="scss" scoped>
