@@ -1,4 +1,5 @@
 @import './todonVar.scss';
+@import './iconfont.scss';
 
 
 * {
@@ -14,4 +15,8 @@ body {
     background-color: $bg-color;
 }
 
+
+ul,li {
+  list-style: none;
+}
 

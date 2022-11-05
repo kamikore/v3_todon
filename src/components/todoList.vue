@@ -1,14 +1,23 @@
 <template>
     <div class="list_wrap">
-        <listItem v-for="item in todos" :key="item.id" :todo="item"></listItem>
+        <listItem v-for="(item, index) in todos" :key="item.id" :todo="item" @click="handleClick(index)"></listItem>
     </div>
 </template>
 
 <script setup lang="ts">
 import listItem from '@/components/todoListItem.vue'
 const props = defineProps({
-    todos: Array
+    todos: {
+        type: Array,
+        default: []
+    }
 })
+
+function handleClick(index: Number) {
+    props.todos[index].isDone = !props.todos[index].isDone
+    console.log(props)
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -16,7 +25,6 @@ const props = defineProps({
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 80%;
-    margin: auto;
+    padding: $cardBox-padding;
 }
 </style>

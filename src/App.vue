@@ -1,8 +1,11 @@
-
 <template>
   <main>
     <div class="todo_wrap">
-      <h1>(icon)ToDon</h1>
+      <h1>ToDon</h1>
+      <div class="banner">
+        <drop-menu :opts="filters" icon="icon-list1" />
+        <drop-menu :opts="sorts" icon="icon-filter" />
+      </div>
       <todo-list :todos="todos"></todo-list>
       <button class="addBtn">+</button>
     </div>
@@ -13,21 +16,30 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { getCurrentInstance, Ref, ref } from 'vue';
+import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
 import todoList from "@/components/todoList.vue"
+import todoSort from '@/components/todoSort.vue'
+import todoFilter from '@/components/todoFilter.vue'
+import dropMenu from '@/components/dropMenu.vue'
+import { useTodos } from './composables/useTodos';
 
-let todos: Ref<Array<Object>> = ref()
-const { proxy } = getCurrentInstance()     // 获取上下文
-proxy.$axios.request({
-  url: '/todon/todoList',
-  method: 'GET'
-}).then(res => {
-  todos = res.data
-}).catch(err => {
-  console.log('请求失败', err)
-})
+const todos = useTodos()
+const filters = ['ALL', 'DONE', 'TODO']
+const sorts = ['Newest', 'Oldest']
+
+// const { proxy } = getCurrentInstance()     // 获取上下文
+// proxy.$axios.request({
+//   url: '/todon/todoList',
+//   method: 'GET'
+// }).then(res => {
+//   todos.value = res.data
+// }).catch(err => {
+//   console.log('请求失败', err)
+// })
+
 
 </script>
+
 
 
 <style lang="scss" scoped>
@@ -48,6 +60,12 @@ main {
     padding: 40px 10px;
     border-radius: $cardBox-border-radius;
     text-align: center;
+
+    .banner {
+      display: flex;
+      justify-content: space-between;
+      padding: $cardBox-padding;
+    }
 
     h1 {
       font-weight: 700;
