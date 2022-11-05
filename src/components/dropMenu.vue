@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div style="position: relative;">
         <i class="icon iconfont" :class="icon" @click="showMenu"></i>
         <!-- 下拉菜单 -->
         <Transition>
-            <section class="menu_wrap" v-show="isShow">
+            <section class="menu_wrap" :class="align" v-show="isShow">
                 <ul class="menu_list">
                     <li class="menu_opt" :class="opts.length - 1 === index ? 'lastOne' : ''"
                         v-for="(item, index) in opts" :key="index">{{ item }}</li>
@@ -21,6 +21,7 @@ const isShow: Ref<Boolean> = ref(false)
 const props = defineProps({
     icon: String,   // 点击图标
     opts: Array,    // 选项
+    align: String,  // 对齐方式, left对齐左边框，center对齐中线，right对齐右边框
 })
 
 function showMenu() {
@@ -50,11 +51,23 @@ function showMenu() {
 
 .menu_wrap {
     position: absolute;
-
     background-color: $menu-color;
     color: $menu-font-color;
     padding: $menu-padding;
     border-radius: $menu-border-radius;
+
+    &.left {
+        left: 0;
+    }
+
+    &.center {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &.right {
+        right: 0;
+    }
 
     .menu_list {
 

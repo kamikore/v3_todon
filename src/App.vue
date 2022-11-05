@@ -3,8 +3,8 @@
     <div class="todo_wrap">
       <h1>ToDon</h1>
       <div class="banner">
-        <drop-menu :opts="filters" icon="icon-list1" />
-        <drop-menu :opts="sorts" icon="icon-filter" />
+        <drop-menu :opts="filters" icon="icon-list1" align="left" />
+        <drop-menu :opts="sorts" icon="icon-filter" align="right" />
       </div>
       <todo-list :todos="todos"></todo-list>
       <button class="addBtn">+</button>
