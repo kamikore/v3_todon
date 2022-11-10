@@ -14,19 +14,36 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, defineProps } from 'vue'
+import { Ref, ref, defineProps, onMounted, onUnmounted } from 'vue'
 const isShow: Ref<Boolean> = ref(false)
 
 // 组件复用
 const props = defineProps({
+    data: { type: Array, required: false }, // 可能处理的数据源
     icon: String,   // 点击图标
-    opts: Array,    // 选项
-    align: String,  // 对齐方式, left对齐左边框，center对齐中线，right对齐右边框
+    opts: { type: Array, required: true },    // 选项
+    callback: { type: Function, required: true },   // 选项对应的回调
+    align: { type: String, required: false, default: 'left' }  // 对齐方式, left对齐左边框，center对齐中线，right对齐右边框
 })
+
+// 组件实例？
+const el = ref(null)
 
 function showMenu() {
     isShow.value = !isShow.value
 }
+
+onMounted(() => {
+    console.log("组件实例", el)
+    document.addEventListener('click', (e) => {
+        if (!el.contains(e.target)) showMenu()
+    })
+})
+
+onUnmounted(() => {
+    // 清除事件监听
+})
+
 </script>
 
 <style lang="scss" scoped>
