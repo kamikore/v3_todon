@@ -3,8 +3,8 @@
     <div class="todo_wrap">
       <h1>ToDon</h1>
       <div class="banner">
-        <drop-menu :opts="filters" icon="icon-list1" align="left" />
-        <drop-menu :opts="sorts" icon="icon-filter" align="right" />
+        <drop-menu :opts="filters" @filter="filterTodos" icon="icon-list1" align="left" />
+        <drop-menu :opts="sorts" @sort="sortTodos" icon="icon-filter" align="right" />
       </div>
       <todo-list :todos="todos"></todo-list>
       <button class="addBtn">+</button>
@@ -22,6 +22,8 @@ import todoSort from '@/components/todoSort.vue'
 import todoFilter from '@/components/todoFilter.vue'
 import dropMenu from '@/components/dropMenu.vue'
 import { useTodos } from './composables/useTodos';
+import {filterTodos} from './composables/filterTodos'
+import {sortTodos} from './composables/sortTodos'
 
 const todos = useTodos()
 const filters = ['ALL', 'DONE', 'TODO']

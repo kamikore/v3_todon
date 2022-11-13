@@ -6,7 +6,7 @@
             <section class="menu_wrap" :class="align" v-show="isShow">
                 <ul class="menu_list">
                     <li class="menu_opt" :class="opts.length - 1 === index ? 'lastOne' : ''"
-                        v-for="(item, index) in opts" :key="index">{{ item }}</li>
+                        v-for="(item, index) in opts" :key="index" @click="clickHandler">{{ item }}</li>
                 </ul>
             </section>
         </Transition>
@@ -14,15 +14,16 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, defineProps, onMounted, onUnmounted } from 'vue'
+import { Ref, ref, defineProps,defineEmits, onMounted, onUnmounted } from 'vue'
 const isShow: Ref<Boolean> = ref(false)
+const emit = defineEmits(['filter', 'sort'])
+
+
 
 // 组件复用
 const props = defineProps({
-    data: { type: Array, required: false }, // 可能处理的数据源
     icon: String,   // 点击图标
-    opts: { type: Array, required: true },    // 选项
-    callback: { type: Function, required: true },   // 选项对应的回调
+    opts: { type: Array, required: true },    // 选项列表,title 标签，handler 事件回调
     align: { type: String, required: false, default: 'left' }  // 对齐方式, left对齐左边框，center对齐中线，right对齐右边框
 })
 
@@ -31,6 +32,10 @@ const el = ref(null)
 
 function showMenu() {
     isShow.value = !isShow.value
+}
+
+function clickHandler() {
+    emit('filter',666)
 }
 
 onMounted(() => {
