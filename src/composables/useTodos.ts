@@ -1,16 +1,18 @@
 import axios from '../service'
 import { AxiosResponse } from 'axios'
-import { Ref, ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
+import { todo } from '../../types'
 
-export function useTodos() {
-    const todos: Ref<Array<Object>> = ref([])
+export function useTodos(): Array<todo> {
+    // const todos: Ref<Array<todo>> = ref([])
+    let todos: Array<todo>
 
     async function fetchTodos() {
         await axios.request({
             url: '/todon/todoList',
             method: 'GET'
-        }).then(res => {
-            todos.value = res.data
+        }).then((res: AxiosResponse) => {
+            todos = res.data
         }).catch(err => {
             console.log("请求失败", err)
         })
