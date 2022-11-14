@@ -3,7 +3,7 @@
     <div class="todo_wrap">
       <h1>ToDon</h1>
       <div class="banner">
-        <drop-menu :opts="filters" icon="icon-list1" align="left" @onHandler="" />
+        <drop-menu :opts="filters" icon="icon-list1" align="left" />
         <drop-menu :opts="sorts" icon="icon-filter" align="right" />
       </div>
       <todo-list :todos="todos"></todo-list>
@@ -23,6 +23,7 @@ import todoFilter from '@/components/todoFilter.vue'
 import dropMenu from '@/components/dropMenu.vue'
 import { useTodos, sortTodos, filterTodos } from './composables';
 import { todo } from '../types'
+
 
 // 需要保留原数据
 const todos: Array<todo> = useTodos()

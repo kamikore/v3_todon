@@ -6,6 +6,7 @@ import { todo } from '../../types'
  * @param {Ref<Array<todo>>} todos 待办事项列表
  * @param {String} sortType 排序方式，'newest', 'oldest'
  */
+<<<<<<< HEAD
 export function sortTodos(todos: Ref<Array<todo>>, sortType: String): void {
     if (todos.value.length <= 1) return
     switch (sortType) {
@@ -20,4 +21,8 @@ export function sortTodos(todos: Ref<Array<todo>>, sortType: String): void {
             })
             break;
     }
+=======
+export function sortTodos(todos, sortType) {
+    console.log("排序")
+>>>>>>> 82d3d81e6826242ead55f74b239019931fd8fa47
 }

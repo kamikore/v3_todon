@@ -16,16 +16,19 @@
 <script setup lang="ts">
 import { Ref, ref, defineProps, defineEmits, onMounted, onUnmounted } from 'vue'
 
-
 const isShow: Ref<Boolean> = ref(false)
+const emit = defineEmits(['filter', 'sort'])
+
+
 
 const props = defineProps({
     icon: { type: String, required: false },   // 点击图标
     opts: { type: Array, required: true },    // 菜单选项，title 选项标签，handler 处理函数
+
     align: { type: String, required: false, default: 'left' }  // 对齐方式, left对齐左边框，center对齐中线，right对齐右边框
 })
 
-const emit = defineEmits(['sort', 'filter'])
+const emits = defineEmits(['sort', 'filter'])
 
 
 // 组件实例？
@@ -33,6 +36,10 @@ const el = ref(null)
 
 function showMenu() {
     isShow.value = !isShow.value
+}
+
+function clickHandler() {
+    emit('filter', 666)
 }
 
 onMounted(() => {

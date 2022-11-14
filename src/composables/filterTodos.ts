@@ -28,4 +28,5 @@ export function filterTodos(todos: Ref<Array<todo>>, filterType: String) {
     }
 
     todos.value = res
+
 }
