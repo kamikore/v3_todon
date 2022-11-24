@@ -21,11 +21,38 @@ import todoList from "@/components/todoList.vue"
 import todoSort from '@/components/todoSort.vue'
 import todoFilter from '@/components/todoFilter.vue'
 import dropMenu from '@/components/dropMenu.vue'
-import { useTodos } from './composables/useTodos';
+import { useTodos, sortTodos, filterTodos } from './composables';
+import { todo } from '../types'
 
-const todos = useTodos()
-const filters = ['ALL', 'DONE', 'TODO']
-const sorts = ['Newest', 'Oldest']
+
+// 需要保留原数据
+const todos: Array<todo> = useTodos()
+// 展示用的副本
+const tempTodos: Ref<Array<todo>> = ref(todos)
+const filters = [
+  {
+    title: 'All',
+    handler: filterTodos.bind(null, todos, tempTodos, 'all'),
+  },
+  {
+    title: 'Done',
+    handler: filterTodos.bind(null, todos, tempTodos, 'done')
+  },
+  {
+    title: 'Todo',
+    handler: filterTodos.bind(null, todos, tempTodos, 'todo')
+  }
+]
+const sorts = [
+  {
+    title: 'Newest',
+    handler: sortTodos.bind(null, todos, tempTodos, 'newest')
+  },
+  {
+    title: 'Oldest',
+    handler: sortTodos.bind(null, todos, tempTodos, 'oldest')
+  }
+]
 
 // const { proxy } = getCurrentInstance()     // 获取上下文
 // proxy.$axios.request({
