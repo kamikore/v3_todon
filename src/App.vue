@@ -3,8 +3,10 @@
     <div class="todo_wrap">
       <h1>ToDon</h1>
       <div class="banner">
-        <drop-menu :opts="filters" icon="icon-list1" align="left" />
-        <drop-menu :opts="sorts" icon="icon-filter" align="right" />
+        <!-- 为过滤菜单，监听过滤事件, 修改filter的值，从而计算属性重新计算 -->
+        <drop-menu :opts="filters" icon="icon-list1" align="left" @on-filter="filter = $event" />
+        <!-- 为排序菜单，监听排序事件 -->
+        <drop-menu :opts="sorts" icon="icon-filter" align="right" @on-sort="sort = $event" />
       </div>
       <todo-list :todos="todos"></todo-list>
       <button class="addBtn">+</button>
@@ -21,48 +23,45 @@ import todoList from "@/components/todoList.vue"
 import todoSort from '@/components/todoSort.vue'
 import todoFilter from '@/components/todoFilter.vue'
 import dropMenu from '@/components/dropMenu.vue'
-import { useTodos, sortTodos, filterTodos } from './composables';
+import { useTodos, useSortTodos, usefilterTodos } from '@/composables';
 import { todo } from '../types'
 
 
 // 需要保留原数据
 const todos: Array<todo> = useTodos()
-// 展示用的副本
-const tempTodos: Ref<Array<todo>> = ref(todos)
+
+const { sort, sortTodos } = useSortTodos(todos);
+const { filter, filterTodos } = usefilterTodos(todos);
 const filters = [
   {
-    title: 'All',
-    handler: filterTodos.bind(null, todos, tempTodos, 'all'),
+    title: 'All',       // 菜单标签文本
+    handler: 'on-filter',  // 触发事件处理函数
+    params: 'all',        // 事件传值
   },
   {
     title: 'Done',
-    handler: filterTodos.bind(null, todos, tempTodos, 'done')
+    handler: 'on-filter',
+    params: 'done',
   },
   {
     title: 'Todo',
-    handler: filterTodos.bind(null, todos, tempTodos, 'todo')
+    handler: 'on-filter',
+    params: 'todo',
   }
 ]
 const sorts = [
   {
     title: 'Newest',
-    handler: sortTodos.bind(null, todos, tempTodos, 'newest')
+    handler: 'on-sort',
+    params: 'newest',
   },
   {
     title: 'Oldest',
-    handler: sortTodos.bind(null, todos, tempTodos, 'oldest')
+    handler: 'on-sort',
+    params: 'oldest',
   }
 ]
 
-// const { proxy } = getCurrentInstance()     // 获取上下文
-// proxy.$axios.request({
-//   url: '/todon/todoList',
-//   method: 'GET'
-// }).then(res => {
-//   todos.value = res.data
-// }).catch(err => {
-//   console.log('请求失败', err)
-// })
 
 </script>
 

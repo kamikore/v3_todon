@@ -10,10 +10,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '~': './',
-      '@': '/src'
+      '@': '/src',
     }
   },
-  css:{
+  css: {
     preprocessorOptions: {
       scss: {
         additionalData: "@import '@/styles/index.scss';"

@@ -5,8 +5,11 @@
         <Transition>
             <section class="menu_wrap" :class="align" v-show="isShow">
                 <ul class="menu_list">
+                    <!-- 事件触发并传值 -->
                     <li class="menu_opt" :class="opts.length - 1 === index ? 'lastOne' : ''"
-                        v-for="(item, index) in opts" :key="index" @click="$emit(item.handler)">{{ item.title }}</li>
+                        v-for="(item, index) in opts" :key="index" @click="$emit(item.handler, item.params)">
+                        {{ item.title }}
+                    </li>
                 </ul>
             </section>
         </Transition>
@@ -14,21 +17,18 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, defineProps, defineEmits, onMounted, onUnmounted } from 'vue'
+import { Ref, ref, defineProps, onMounted, onUnmounted } from 'vue'
 
 const isShow: Ref<Boolean> = ref(false)
-const emit = defineEmits(['filter', 'sort'])
 
 
 
 const props = defineProps({
     icon: { type: String, required: false },   // 点击图标
     opts: { type: Array, required: true },    // 菜单选项，title 选项标签，handler 处理函数
-
     align: { type: String, required: false, default: 'left' }  // 对齐方式, left对齐左边框，center对齐中线，right对齐右边框
 })
 
-const emits = defineEmits(['sort', 'filter'])
 
 
 // 组件实例？

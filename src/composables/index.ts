@@ -1,3 +1,3 @@
 export * from './useTodos'
-export * from './filterTodos'
-export * from './sortTodos'
+export * from './useFilterTodos'
+export * from './useSortTodos'
