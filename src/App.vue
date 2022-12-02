@@ -4,11 +4,11 @@
       <h1>ToDon</h1>
       <div class="banner">
         <!-- 为过滤菜单，监听过滤事件, 修改filter的值，从而计算属性重新计算 -->
-        <drop-menu :opts="filters" icon="icon-list1" align="left" @on-filter="filter = $event" />
+        <drop-menu :opts="filters" icon="icon-list1" align="left" @on-filter="filterBy = $event" />
         <!-- 为排序菜单，监听排序事件 -->
-        <drop-menu :opts="sorts" icon="icon-filter" align="right" @on-sort="sort = $event" />
+        <drop-menu :opts="sorts" icon="icon-filter" align="right" @on-sort="sortBy = $event" />
       </div>
-      <todo-list :todos="todos"></todo-list>
+      <todo-list :todos="filterTodos"></todo-list>
       <button class="addBtn">+</button>
     </div>
   </main>
@@ -23,15 +23,14 @@ import todoList from "@/components/todoList.vue"
 import todoSort from '@/components/todoSort.vue'
 import todoFilter from '@/components/todoFilter.vue'
 import dropMenu from '@/components/dropMenu.vue'
-import { useTodos, useSortTodos, usefilterTodos } from '@/composables';
+import { useTodos, useFilterTodos } from '@/composables';
 import { todo } from '../types'
 
 
 // 需要保留原数据
 const todos: Array<todo> = useTodos()
 
-const { sort, sortTodos } = useSortTodos(todos);
-const { filter, filterTodos } = usefilterTodos(todos);
+const { filterBy, sortBy, filterTodos } = useFilterTodos(todos);
 const filters = [
   {
     title: 'All',       // 菜单标签文本

@@ -38,9 +38,6 @@ function showMenu() {
     isShow.value = !isShow.value
 }
 
-function clickHandler() {
-    emit('filter', 666)
-}
 
 onMounted(() => {
     console.log("组件实例", el)
