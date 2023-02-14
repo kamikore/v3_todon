@@ -6,8 +6,13 @@
             <section class="menu_wrap" :class="align" v-show="isShow">
                 <ul class="menu_list">
                     <!-- 事件触发并传值 -->
-                    <li class="menu_opt" :class="opts.length - 1 === index ? 'lastOne' : ''"
-                        v-for="(item, index) in opts" :key="index" @click="$emit(item.handler, item.params)">
+                    <li 
+                        class="menu_opt" 
+                        :class="[opts.length - 1 === index ? 'lastOne' : '',isChosen === index? 'isChosen':'']"
+                        v-for="(item, index) in opts" 
+                        :key="index" 
+                        @click="()=>{$emit(item.handler, item.params); isChosen = index; isShow = false;}"
+                    >
                         {{ item.title }}
                     </li>
                 </ul>
@@ -20,7 +25,8 @@
 import { Ref, ref, defineProps, onMounted, onUnmounted } from 'vue'
 
 const isShow: Ref<Boolean> = ref(false)
-
+// 当前选中的选项索引
+const isChosen: Ref<Number> = ref(0)
 
 
 const props = defineProps({
@@ -40,10 +46,10 @@ function showMenu() {
 
 
 onMounted(() => {
-    console.log("组件实例", el)
-    // document.addEventListener('click', (e) => {
-    //     if (!el.contains(e.target)) showMenu()
-    // })
+    console.log("组件实例", el.value)
+    document.addEventListener('click', (e) => {
+        if (!el.value.contains(e.target)) isShow.value = false
+    })
 })
 
 onUnmounted(() => {
@@ -115,8 +121,16 @@ onUnmounted(() => {
             }
         }
 
+        .menu_opt.isChosen::after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 100%;
+            border-radius: 4px;
+            background-color: #fff;
+        } 
 
-        .menu_opt:hover {}
+
     }
 }
 </style>

@@ -13,7 +13,8 @@
         <!-- 为排序菜单，监听排序事件 -->
         <drop-menu :opts="sorts" icon="icon-filter" align="right" @on-sort="sortBy = $event" />
       </div>
-      <todo-add></todo-add>
+      <!-- 绑定自定义事件 add-todo -->
+      <todo-add  @add-todo="addTodo"></todo-add>
       <todo-list :todos="filterTodos"></todo-list>
       
     </div>
@@ -35,7 +36,7 @@ import { todo } from '../types'
 
 
 // 需要保留原数据
-const todos: Array<todo> = useTodos()
+const { todos,addTodo } = useTodos();
 
 const { filterBy, sortBy, filterTodos } = useFilterTodos(todos);
 const filters = [

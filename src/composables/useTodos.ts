@@ -3,9 +3,8 @@ import { AxiosResponse } from 'axios'
 import { onMounted, Ref, ref } from 'vue'
 import { todo } from '../../types'
 
-export function useTodos(): Array<todo> {
+export function useTodos() {
     const todos: Ref<Array<todo>> = ref([])
-    // let todos: Array<todo>
 
     async function fetchTodos() {
         await axios.request({
@@ -19,8 +18,16 @@ export function useTodos(): Array<todo> {
         })
     }
 
+
+    function addTodo(todo:todo) {
+        todos.value.push(todo)
+    }
+
     onMounted(() => fetchTodos())
 
-    return todos
+    return {
+        todos,
+        addTodo
+    }
 
 }

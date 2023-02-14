@@ -1,16 +1,36 @@
 <template>
     <div class="edit_bar_wrap">
         <input type="text" v-model="todoContent" @keyup.enter="emitAddTodo">
-        <button>+</button>
+        <button @click="emitAddTodo">+</button>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Ref, ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
+
 const todoContent: Ref<String> = ref('')
+const emit =  defineEmits(['add-todo'])
+
+function emitAddTodo() {
+  if(todoContent && todoContent.value == '') {
+    alert("内容不能为空！")
+    return
+  }
+
+  const todo = {
+    id: uuidv4(),
+    content: todoContent.value,
+    dateTime: new Date().toLocaleString(),
+    isDone: false,
+  }
+
+  emit('add-todo',todo)
+}
 
 
 </script>
+
 
 <style lang="scss" scoped>
    .edit_bar_wrap {

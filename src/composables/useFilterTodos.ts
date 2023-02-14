@@ -20,7 +20,7 @@ export function useFilterTodos(todos: Ref<Array<todo>>): object {
 
     // 过滤
     const filter = computed(() => {
-        console.log("filter trigger");
+        console.log("filter trigger",filterBy);
         // 当数据为空或是只有一项时，无需触发更新
         if(todos && todos.value.length <= 1) return todos.value;
 

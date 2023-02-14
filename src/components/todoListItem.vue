@@ -9,7 +9,7 @@
         <!-- label绑定input后，点label会触发两次label和input共同的父元素的click事件 -->
         <div class="content_wrap">
             <h3>{{ todo.content }}</h3>
-            <span>{{ todo.dateTime }}}</span>
+            <span>{{ todo.dateTime }}</span>
         </div>
         <span class="checkBox"><i v-show="todo.isDone" class="iconfont icon-gougou"></i></span>
     </div>
@@ -43,6 +43,7 @@ const props = defineProps({
         h3 {
             font-size: $item-font-size;
             color: $item-font-color;
+            margin-bottom: 4px;
         }
 
         span {
