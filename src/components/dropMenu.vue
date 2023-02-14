@@ -31,7 +31,7 @@ const props = defineProps({
 
 
 
-// 组件实例？
+// 组件实例
 const el = ref(null)
 
 function showMenu() {
@@ -78,6 +78,7 @@ onUnmounted(() => {
     color: $menu-font-color;
     padding: $menu-padding;
     border-radius: $menu-border-radius;
+    z-index: 999;
 
     &.left {
         left: 0;

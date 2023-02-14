@@ -10,6 +10,7 @@ export function useTodos(): Array<todo> {
     async function fetchTodos() {
         await axios.request({
             url: '/todon/todoList',
+            // url: 'https://jsonplaceholder.typicode.com/todos',
             method: 'GET'
         }).then((res: AxiosResponse) => {
             todos.value = res.data

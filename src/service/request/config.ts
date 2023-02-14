@@ -10,6 +10,6 @@ const TIME_OUT = 10000
 //   BASE_URL = 'rul地址'
 // }
 
-BASE_URL = 'http://127.0.0.1:4523/m1/1855139-0-default';
+BASE_URL = 'https://mock.apifox.cn/m1/1855139-0-default';
 
 export { BASE_URL, TIME_OUT }

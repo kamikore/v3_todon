@@ -12,9 +12,9 @@ const axios = new Request({
     interceptors: {
         requestInterceptor: (config) => {
             // 给当前请求实例所有的请求添加token
-            const token = ''
+            const token = '19kSrzwKuP6z8C9AbGKYa50NdYGnrUJE'
             if (token) {
-                config.headers ? config.headers.Authorization = `Bearer ${token}` : ''
+                config.headers ? config.headers.apifoxToken = token : ''
             }
 
             console.log('创建实例自定义的请求拦截')

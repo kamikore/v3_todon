@@ -1,5 +1,6 @@
 <template>
     <div class="list_wrap">
+        <text class="tipText" v-show="todos && todos.length === 0">~~内容为空~~</text>
         <listItem v-for="(item, index) in todos" :key="item.id" :todo="item" @click="handleClick(index)"></listItem>
     </div>
 </template>
@@ -26,5 +27,10 @@ function handleClick(index: Number) {
     flex-direction: column;
     gap: 12px;
     padding: $cardBox-padding;
+    margin-top: 20px;
+
+    .tipText {
+        color: #c0c0c0;
+    }
 }
 </style>
