@@ -38,7 +38,7 @@ const props = defineProps({
 
 
 // 组件实例
-const el = ref(null)
+const el = ref<HTMLElement | null>(null)
 
 function showMenu() {
     isShow.value = !isShow.value
@@ -47,8 +47,8 @@ function showMenu() {
 
 onMounted(() => {
     console.log("组件实例", el.value)
-    document.addEventListener('click', (e) => {
-        if (!el.value.contains(e.target)) isShow.value = false
+    document.addEventListener('click', (e: MouseEvent) => {
+        if (!el.value?.contains(e.target)) isShow.value = false
     })
 })
 
