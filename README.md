@@ -1,5 +1,5 @@
 # v3_todon
-一个基于vue3.0 的todolist待办事项列表项目，用于Vue3的练手，使用了Vue3 Composition API
+一个基于Vue3.0 + Ts 的todolist待办事项列表项目，用于Vue3的练手，使用了Vue3 Composition API
 
 > 预览：https://kamikore.top/v3_todon
 
