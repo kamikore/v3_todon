@@ -1,4 +1,3 @@
-// ------------------------------------------ 接口类型
 
 /* 
   拦截器默认返回给回调的参数 config, Response
@@ -14,7 +13,7 @@ export interface RequestInterceptors<T = AxiosResponse> {
   responseInterceptorCatch?: (error: any) => any
 }
 
-// 定义一个新的接口,继承于AxiosRequestConfig,表示我们传入的参数要有interceptors和showLoading,当然也是可选的
+// 定义一个新的接口,继承于AxiosRequestConfig，添加新的参数interceptors和showLoading,当然也是可选的
 export interface RequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   // 对原来的AxiosRequestConfig进行扩展,添加拦截器和是否显示loading,可选的
   interceptors?: RequestInterceptors<T>

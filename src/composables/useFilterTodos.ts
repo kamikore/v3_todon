@@ -3,18 +3,15 @@ import { todo } from '../../types'
 
 /**
  * 对todos列表过滤，包括排序，过滤，标签等操作, 过滤与排序并不互斥，而是作用于同一份数据
- * @param {Ref<Array<todo>>} todos 待办事项列表
- * @returns {object} filter 过滤类型， filterTodos 计算属性返回过滤后todos
+ * @param {Array<todo>} todos 待办事项列表
+ * @returns filter 过滤类型， filterTodos 计算属性返回过滤后todos
  */
-export function useFilterTodos(todos: Ref<Array<todo>>): object {
-    const filterBy = ref("all");  // 过滤类型
+export function useFilterTodos(todos:Array<todo>) {
+    const filterBy:Ref<string> = ref("all");  // 过滤类型
     const sortBy = ref("newest");   // 排序类型
 
-    // computed() 接受一个 getter 函数，返回一个只读的响应式 ref 对象。该 ref 通过 .value 暴露 getter 函数的返回值。
     const filterTodos = computed(() => {
-        // 计算属性也并不接受参数
-
-        return sort.value;
+        return sort.value;      // sort 返回的是只读的响应式 ref 对象
     });
 
 
@@ -22,22 +19,23 @@ export function useFilterTodos(todos: Ref<Array<todo>>): object {
     const filter = computed(() => {
         console.log("filter trigger",filterBy);
         // 当数据为空或是只有一项时，无需触发更新
-        if(todos && todos.value.length <= 1) return todos.value;
+        if(todos && todos.length <= 1) return todos;
 
         switch (filterBy.value) {
             case "done":
-                return todos.value.filter((todo: todo) => todo.isDone);
+                return todos.filter((todo: todo) => todo.isDone);
             case "todo":
-                return todos.value.filter((todo: todo) => !todo.isDone);
+                return todos.filter((todo: todo) => !todo.isDone);
             default:
-                return todos.value;
+                return todos;
         }
     });
 
     // 排序
     const sort = computed(() => {
         console.log("sort trigger",sortBy);
-        // filter.value 经过过滤的值
+
+        // filter 返回的是只读的响应式 ref 对象
         if (filter && filter.value.length <= 1) return filter.value;
         // 需要深拷贝，而不能简单赋值
         let temp = [...filter.value];

@@ -8,7 +8,7 @@ const axios = new Request({
     baseURL: BASE_URL,
     // 传入超时时间
     timeout: TIME_OUT,
-    // 传入拦截器
+    // 自定义的拦截器
     interceptors: {
         requestInterceptor: (config) => {
             // 给当前请求实例所有的请求添加token
@@ -17,7 +17,7 @@ const axios = new Request({
                 config.headers ? config.headers.apifoxToken = token : ''
             }
 
-            console.log('创建实例自定义的请求拦截')
+            console.log('创建实例自定义的请求拦截',config)
             return config
         },
         requestInterceptorCatch: (err) => {
@@ -25,7 +25,7 @@ const axios = new Request({
             return err
         },
         responseInterceptor: (res) => {
-            console.log('创建实例自定义的响应拦截')
+            console.log('创建实例自定义的响应拦截',res)
             return res
         },
         responseInterceptorCatch: (err) => {

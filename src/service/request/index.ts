@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import { AxiosInstance } from 'axios'         // axios 实例类型
 import { RequestConfig, RequestInterceptors } from './type'
@@ -16,11 +16,11 @@ class Request {
     // loading?: ILoadingInstance,    // loading 实例
 
     constructor(config: RequestConfig) {
-        this.instance = axios.create(config),        // config都是可选的，{baseURL,timeout,headers}
-            this.interceptors = config.interceptors,
-            this.showLoading = config.showLoading ?? true  // 只有当左边值为null/undefined，才会取右边值
+        this.instance = axios.create(config)       // config都是可选的，{baseURL,timeout,headers}
+        this.interceptors = config.interceptors
+        this.showLoading = config.showLoading ?? true  // 只有当左边值为null/undefined，才会取右边值
 
-        // 实例拦截器, 传入成功回调与失败回调。 ?. 没有进一步属性返回undefined
+        // 自定义的拦截器, 传入成功回调与失败回调。 ?. 没有进一步属性返回undefined
         this.instance.interceptors.request.use(this.interceptors?.requestInterceptor, this.interceptors?.requestInterceptorCatch)
         this.instance.interceptors.response.use(this.interceptors?.responseInterceptor, this.interceptors?.responseInterceptorCatch)
 
@@ -60,8 +60,8 @@ class Request {
 
 
     // 1.传入返回结果的类型T,这样在Promise中我们就知道返回值的类型是T了
-    // 2.通过HYRequestConfig<T>,将返回值类型T告诉接口,从而在接口的返回响应拦截中指明返回值类型就是T
-    request<T>(config: RequestConfig<T>): Promise<T> {
+    // 2.通过RequestConfig<T>,将返回值类型T告诉接口,从而在接口的返回响应拦截中指明返回值类型就是T
+    request<T = AxiosResponse>(config: RequestConfig<T>): Promise<T> {
         // 返回一个Promise对象,好让使用者在外面拿到数据
         return new Promise((resolve, reject) => {
             // 1.单个请求对请求config的处理
@@ -75,6 +75,7 @@ class Request {
                 this.showLoading = config.showLoading
             }
 
+            // 3.发起请求
             this.instance
                 // request里面有两个泛型,第一个泛型默认是any,第二个泛型是AxiosResponse
                 // 由于前面我们已经将res.data直接返回了,所以其实最后的数据就是T类型的,所以我们在第二个泛型中要指定返回值的类型T
