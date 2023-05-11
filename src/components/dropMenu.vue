@@ -45,15 +45,18 @@ function showMenu() {
 }
 
 
+const clickOutside:EventListener = (e: Event) => {
+    if (!el.value?.contains(e.target)) isShow.value = false
+}
+
 onMounted(() => {
     console.log("组件实例", el.value)
-    document.addEventListener('click', (e: MouseEvent) => {
-        if (!el.value?.contains(e.target)) isShow.value = false
-    })
+    document.addEventListener('click',clickOutside)
 })
 
 onUnmounted(() => {
     // 清除事件监听
+    document.removeEventListener('click',clickOutside)
 })
 
 </script>
